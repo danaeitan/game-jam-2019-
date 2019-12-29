@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ProjectileShooter : MonoBehaviour
 {
+    private const float shotDelay = 2.2f; //in seconds
+    private float untilShotTimer;
     GameObject prefab;
     // Start is called before the first frame update
     void Start()
@@ -11,16 +13,21 @@ public class ProjectileShooter : MonoBehaviour
         prefab = Resources.Load("projectile") as GameObject;
 
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        untilShotTimer -= Time.deltaTime;
+        var shootPressed = Input.GetKeyDown(KeyCode.Space);
+        if (untilShotTimer <= 0 || shootPressed)
         {
-            GameObject projectile = Instantiate(prefab) as GameObject;
-            projectile.transform.position = transform.position + Camera.main.transform.forward * 2;
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            rb.velocity = Camera.main.transform.forward * 40;
+            untilShotTimer = shotDelay;
+
+            {
+                GameObject projectile = Instantiate(prefab) as GameObject;
+                projectile.transform.position = transform.position + Camera.main.transform.forward * 2;
+                Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                rb.velocity = Camera.main.transform.forward * 40;
+            }
         }
     }
 }
