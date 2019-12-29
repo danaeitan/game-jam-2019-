@@ -10,7 +10,7 @@ public class FlameCounter : MonoBehaviour
     void Start()
     {
         counter = 0;
-        sta
+        
     }
 
     // Update is called once per frame

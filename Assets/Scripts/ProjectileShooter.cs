@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class ProjectileShooter : MonoBehaviour
 {
-    private const float shotDelay = 2.2f; //in seconds
+    [SerializeField]
+    private GameObject prefab;
+    [SerializeField]
+    private float shotDelay = 2.2f; //in seconds
+    [SerializeField]
+    private float shotSpeed = 40f;
+
+
     private float untilShotTimer;
-    GameObject prefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        prefab = Resources.Load("projectile") as GameObject;
-
+        untilShotTimer = shotDelay;
     }
+
     // Update is called once per frame
     void Update()
     {
         untilShotTimer -= Time.deltaTime;
         var shootPressed = Input.GetKeyDown(KeyCode.Space);
-        if (untilShotTimer <= 0 || shootPressed)
-        {
+        if (untilShotTimer <= 0 || shootPressed) {
             untilShotTimer = shotDelay;
+            // Shoot new prefab
+            GameObject projectile = Instantiate(prefab) as GameObject;
+            Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-            {
-                GameObject projectile = Instantiate(prefab) as GameObject;
-                projectile.transform.position = transform.position + Camera.main.transform.forward * 2;
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                rb.velocity = Camera.main.transform.forward * 40;
-            }
+            var toTarget = (Camera.main.transform.position - transform.position).normalized;
+            //set initial shot position and velocity
+            projectile.transform.position = transform.position;
+            rb.velocity = toTarget * shotSpeed;
         }
     }
 }
