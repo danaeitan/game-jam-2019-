@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37d0397475a71043a2ab1d78b4bc691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 7997442430819331748, guid: 0e3418439be2b6f4f8d4b45079aa1e82, type: 3}
 --- !u!1 &1279613035
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +452,7 @@ PrefabInstance:
     - target: {fileID: 7997442430819331748, guid: 0e3418439be2b6f4f8d4b45079aa1e82,
         type: 3}
       propertyPath: m_Name
-      value: projectile
+      value: Cannon
       objectReference: {fileID: 0}
     - target: {fileID: 5930461140045291022, guid: 0e3418439be2b6f4f8d4b45079aa1e82,
         type: 3}
