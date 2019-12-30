@@ -5,9 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class treeFalling : MonoBehaviour
 {
-    public Transform tree;
-    public Rigidbody rb;
-    public float speed;
+   
     public Vector3 currentRotation;
     public Vector3 angleToRotate;
 
