@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Shootable
   - Floor
+  - enemy
+  - Enemy
   layers:
   - Default
   - TransparentFX
