@@ -6,8 +6,6 @@ public class OilDropletsSlpatOnCollision : MonoBehaviour
 {
 	public ParticleSystem oilDroplets;
 	public ParticleSystem splashDroplets;
-	//public Gradient particleColorGradient;
-	//public ParticleDecalPool dropletDecalPool;
 
 	List<ParticleCollisionEvent> collisionEvents;
 
@@ -25,7 +23,7 @@ public class OilDropletsSlpatOnCollision : MonoBehaviour
 		}
 	}
 
-	private void BeginPour()
+	public void BeginPour()
 	{
 		print("pouring");
 		var coll = oilDroplets.collision;

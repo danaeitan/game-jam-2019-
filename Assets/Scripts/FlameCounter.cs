@@ -38,6 +38,10 @@ public class FlameCounter : MonoBehaviour
             {
                 print("GAME OVER!");
             }
+            if (counter >= 4)
+            {
+                Explosion();
+            }
         }
     }
     
@@ -69,7 +73,7 @@ public class FlameCounter : MonoBehaviour
 
     private void ChangeColor(Color c)
     {
-        light.color = c;
+        light.color = Color.Lerp(c, Color.white, 0.5f); ;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", c);
         GetComponent<Renderer>().material.SetColor("_Color", c);
     }

@@ -21,7 +21,7 @@ public class OilCup : MonoBehaviour
 
     [Header("Oil spill")]
     [SerializeField]
-    private GameObject spillPrefab;
+    private OilDropletsSlpatOnCollision spillPrefab;
     [SerializeField]
     private float oilSurfaceReduceRate;
 
@@ -49,12 +49,14 @@ public class OilCup : MonoBehaviour
 
     private Vector3 lastMouse;
     private float initialFakeSurfaceHeight;
+    private bool isInstantiated;
     
 
     private void Start()
     {
         lastMouse = Input.mousePosition;
         initialFakeSurfaceHeight = oilFakeSurface.transform.localPosition.y;
+        spillPrefab = GetComponentInChildren<OilDropletsSlpatOnCollision>();
     }
     
     private void Update()
@@ -104,14 +106,15 @@ public class OilCup : MonoBehaviour
             Vector3 spillPos;
 
             spillPos = p3;
-            // spillPos = fakeSurfaceCollider.transform.position + p3;
-            // spillPos = fakeSurfaceCollider.transform.TransformVector(p3);
+          //  spillPos = fakeSurfaceCollider.transform.position + p3;
+          //  spillPos = fakeSurfaceCollider.transform.TransformVector(p3);
 
-            GameObject thing = GameObject.Instantiate(spillPrefab, spillPos, Quaternion.identity, fakeSurfaceCollider.transform);
-            thing.transform.SetParent(null);
-            thing.transform.localScale = Vector3.one;
+            spillPrefab.BeginPour();
+
 
             oilFakeSurface.transform.localPosition += new Vector3(0, -oilSurfaceReduceRate * Time.deltaTime, 0);
+            spillCollider.transform.localPosition += new Vector3(0, -oilSurfaceReduceRate * Time.deltaTime, 0);
+
             var thingVall = oilFakeSurface.transform.localPosition.y / (0.6f * initialFakeSurfaceHeight);
             var fixScale = Mathf.Lerp(thingVall, thingVall / thingVall, 0.90f);
             oilFakeSurface.transform.localScale = new Vector3(fixScale, fixScale, fixScale);

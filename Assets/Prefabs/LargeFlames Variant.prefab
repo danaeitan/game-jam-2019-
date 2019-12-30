@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6444642139674043367}
     m_Modifications:
+    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
+        type: 3}
+      propertyPath: m_Range
+      value: 175.41968
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1250411035621580777, guid: 7c41c5d342d539b45b392d05918aa703,
         type: 3}
       propertyPath: m_Name
@@ -67,21 +87,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.17400001
       objectReference: {fileID: 0}
-    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
-        type: 3}
-      propertyPath: m_Range
-      value: 175.41968
-      objectReference: {fileID: 0}
-    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
-        type: 3}
-      propertyPath: m_BounceIntensity
-      value: 1.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 1250411035621580774, guid: 7c41c5d342d539b45b392d05918aa703,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c41c5d342d539b45b392d05918aa703, type: 3}
 --- !u!108 &5307921506486436547 stripped
@@ -104,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 7908359014624174385, guid: bb98861c48ad2024ca93498c7dd93a6c,
         type: 3}
       propertyPath: EXPLOSION_FACTOR
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7908359014624174385, guid: bb98861c48ad2024ca93498c7dd93a6c,
         type: 3}
@@ -119,12 +124,17 @@ PrefabInstance:
     - target: {fileID: 7908359014624174385, guid: bb98861c48ad2024ca93498c7dd93a6c,
         type: 3}
       propertyPath: EXPLOSION_COLOR.g
-      value: 0.50980395
+      value: 0.2627451
       objectReference: {fileID: 0}
     - target: {fileID: 7908359014624174385, guid: bb98861c48ad2024ca93498c7dd93a6c,
         type: 3}
       propertyPath: EXPLOSION_COLOR.b
-      value: 1
+      value: 0.8117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908359014624174385, guid: bb98861c48ad2024ca93498c7dd93a6c,
+        type: 3}
+      propertyPath: EXPLOSION_ANIMATION_TIME
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4430340635691708, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_LocalPosition.x
