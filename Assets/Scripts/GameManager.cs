@@ -10,18 +10,17 @@ public class GameManager : MonoBehaviour
     public Canvas mainCanvas;
 
     public GameObject fire;
-    public Vector3 STARTING_POS = new Vector3(0.02f, 0.02f, 2f);
-    public Vector3 STARTING_SCALE = new Vector3(1, 1, 1);
+    public Vector3 STARTING_POS;
+    public Vector3 STARTING_SCALE;
     public float FIRE_DURATION;
     private Camera mainCamera; //this is the actual camera with the fade option
 
     private void Start()
     {
-        Instantiate(fire, STARTING_POS, Quaternion.identity);
-        fire.transform.localScale = STARTING_SCALE;
-        fire.GetComponent<FlameCounter>().LEVEL_TIME = FIRE_DURATION;
         mainCamera = Camera.main;
-        mainCanvas.gameObject.SetActive(false);
+        
+        //mainCanvas.gameObject.SetActive(false);
+        CreateFire();
     }
     //This is called when: 1. The fire has ceased, 2.The player dropped the oil 3.when the player collided with obsticle 
     public void OnEndGame()
@@ -48,5 +47,12 @@ public class GameManager : MonoBehaviour
     public void OnWinGame()
     {
         mainCanvas.gameObject.SetActive(true);
+    }
+
+    private void CreateFire()
+    {
+        Instantiate(fire, STARTING_POS, Quaternion.identity);
+        fire.transform.localScale = STARTING_SCALE;
+        fire.GetComponent<FlameCounter>().fireDuration = FIRE_DURATION;
     }
 }
