@@ -12,12 +12,13 @@ public class ProjectileShooter : MonoBehaviour
     private float shotSpeed = 40f;
 
 
-    private float untilShotTimer;
+    private float untilShotTimer = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
         untilShotTimer = shotDelay;
+        //InvokeRepeating("ShootProjectile");
     }
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class ProjectileShooter : MonoBehaviour
             //set initial shot position and velocity
             projectile.transform.position = transform.position;
             rb.velocity = toTarget * shotSpeed;
+            //TODo: Destroy projectile after shot
         }
     }
 }
