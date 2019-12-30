@@ -24,6 +24,8 @@ public class OilCup : MonoBehaviour
     private OilDropletsSlpatOnCollision spillPrefab;
     [SerializeField]
     private float oilSurfaceReduceRate;
+    [SerializeField]
+    [Range(0.0f, 1.0f)] private float spillLoseThreshold;
 
     [Header("Shake oil surface caused by fast movement")]
     [SerializeField]
@@ -49,13 +51,15 @@ public class OilCup : MonoBehaviour
 
     private Vector3 lastMouse;
     private float initialFakeSurfaceHeight;
+    private float initialSpillColliderHeight;
     private bool isInstantiated;
-    
+
 
     private void Start()
     {
         lastMouse = Input.mousePosition;
         initialFakeSurfaceHeight = oilFakeSurface.transform.localPosition.y;
+        initialSpillColliderHeight = spillCollider.transform.localPosition.y;
         spillPrefab = GetComponentInChildren<OilDropletsSlpatOnCollision>();
     }
     
@@ -96,9 +100,14 @@ public class OilCup : MonoBehaviour
         oilFakeSurface.transform.localRotation = surfaceRot;
 
         // Detect spill
-        if (spillCollider.touching.Contains(fakeSurfaceCollider.GetComponent<Collider>()))
+        var liquidOut = spillCollider.touching.Contains(fakeSurfaceCollider.GetComponent<Collider>());
+        var lost = oilFakeSurface.transform.localScale.y < spillLoseThreshold;
+        var allSpilled = oilFakeSurface.transform.localScale.y <= 0.0f;
+        var toSpill = liquidOut || lost;
+        spillPrefab.SetPouringStatus(toSpill);
+        if (toSpill)
         {
-            var r = 8f;
+            var r = 1f;
             var p = point.transform.position - transform.position;
             var p2 = new Vector3(p.x, 0, p.z).normalized;
             var p3 = (r * p2);
@@ -106,18 +115,42 @@ public class OilCup : MonoBehaviour
             Vector3 spillPos;
 
             spillPos = p3;
-          //  spillPos = fakeSurfaceCollider.transform.position + p3;
-          //  spillPos = fakeSurfaceCollider.transform.TransformVector(p3);
+            //  spillPos = fakeSurfaceCollider.transform.position + p3;
+            //  spillPos = fakeSurfaceCollider.transform.TransformVector(p3);
 
+
+            var thing = new GameObject();
+            thing.transform.SetParent(fakeSurfaceCollider.transform);
+            thing.transform.localPosition = spillPos;
+            var pppos = thing.transform.position;
+            Destroy(thing);
+            spillPrefab.transform.position = pppos;
             spillPrefab.BeginPour();
+            
+            
 
-
-            oilFakeSurface.transform.localPosition += new Vector3(0, -oilSurfaceReduceRate * Time.deltaTime, 0);
-            spillCollider.transform.localPosition += new Vector3(0, -oilSurfaceReduceRate * Time.deltaTime, 0);
-
-            var thingVall = oilFakeSurface.transform.localPosition.y / (0.6f * initialFakeSurfaceHeight);
-            var fixScale = Mathf.Lerp(thingVall, thingVall / thingVall, 0.90f);
-            oilFakeSurface.transform.localScale = new Vector3(fixScale, fixScale, fixScale);
+            var oilFall = -oilSurfaceReduceRate * Time.deltaTime;
+            oilFakeSurface.transform.localPosition = new Vector3
+                (
+                    oilFakeSurface.transform.localPosition.x,
+                    Mathf.Max(0f, oilFakeSurface.transform.localPosition.y + oilFall),
+                    oilFakeSurface.transform.localPosition.z
+                );
         }
+        
+        var dist = (initialSpillColliderHeight - initialFakeSurfaceHeight);
+        spillCollider.transform.localPosition = new Vector3
+            (
+                0,
+                oilFakeSurface.transform.localPosition.y + dist - 0.05f,
+                0
+            );
+
+        var thingVall = (oilFakeSurface.transform.localPosition.y) / initialFakeSurfaceHeight;
+        var fixScale = thingVall;
+
+        fixScale -= 0.1f;
+        fixScale = Mathf.Max(0f, fixScale);
+        oilFakeSurface.transform.localScale = new Vector3(fixScale, fixScale, fixScale);
     }
 }
