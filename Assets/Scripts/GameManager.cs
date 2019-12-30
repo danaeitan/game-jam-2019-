@@ -9,10 +9,17 @@ public class GameManager : MonoBehaviour
     public GameObject player; //this is the OVRCameraRig 
     public Canvas mainCanvas;
 
+    public GameObject fire;
+    public Vector3 STARTING_POS = new Vector3(0.02f, 0.02f, 2f);
+    public Vector3 STARTING_SCALE = new Vector3(1, 1, 1);
+    public float FIRE_DURATION;
     private Camera mainCamera; //this is the actual camera with the fade option
 
     private void Start()
     {
+        Instantiate(fire, STARTING_POS, Quaternion.identity);
+        fire.transform.localScale = STARTING_SCALE;
+        fire.GetComponent<FlameCounter>().LEVEL_TIME = FIRE_DURATION;
         mainCamera = Camera.main;
         mainCanvas.gameObject.SetActive(false);
     }
