@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Start is called before the first frame updat
+    private List<string> enemyTags = new List<string>();
+
+    public void AssignEnemyOnLevelStart()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DestroyEnemyOnLevelEnd()
     {
-        
+
     }
 }
