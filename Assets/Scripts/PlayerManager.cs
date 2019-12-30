@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
         if (other.gameObject.CompareTag("Wall"))
         {
             print("collided with a wall");
-            gameManager.OnRestartGame();
+            gameManager.OnRestartLevel();
         }
 
         if (other.gameObject.CompareTag("Enemy"))
@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("You've been hit!! " + collisionCount);
             if (collisionCount > 2)
             {
-                gameManager.OnRestartGame();
+                gameManager.OnRestartLevel();
             }
             collisionCount++;
         }
