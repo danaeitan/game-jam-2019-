@@ -13,6 +13,7 @@ public class OilDropletsSlpatOnCollision : MonoBehaviour
 	void Start()
 	{
 		collisionEvents = new List<ParticleCollisionEvent>();
+        SetPouringStatus(false);
 	}
 
 	private void Update()
@@ -29,6 +30,7 @@ public class OilDropletsSlpatOnCollision : MonoBehaviour
 		var coll = oilDroplets.collision;
 		coll.enabled = true;
 		oilDroplets.Play();
+        oilDroplets.Emit(1);
 	}
 
 	void OnParticleCollision(GameObject other)
@@ -50,4 +52,9 @@ public class OilDropletsSlpatOnCollision : MonoBehaviour
 		var coll = oilDroplets.collision;
 		coll.enabled = false;
 	}
+
+    public void SetPouringStatus(bool status)
+    {
+        oilDroplets.enableEmission = status;
+    }
 }
