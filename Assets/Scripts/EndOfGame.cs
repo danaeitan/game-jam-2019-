@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndOfGame : MonoBehaviour
 {
+    
     private void OnTriggerEnter(Collider other)
     {
         print("you won!");
