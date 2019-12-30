@@ -5,20 +5,23 @@ using UnityEngine;
 public class FlameCounter : MonoBehaviour
 {
     public float fireDuration; //in seconds. 
+    public float EXPLOSION_FACTOR = 2;
+    public float EXPLOSION_ANIMATION_TIME = 3;
+    public Color EXPLOSION_COLOR;
+    public AudioSource audio;
+    public AudioClip explosionSound;
+
     private float counter;
     private Vector3 startingFireValues;
     private float startingLightRange;
     private Light light;
     private bool deacreaseFire;
-    public float EXPLOSION_FACTOR = 2;
-    public float EXPLOSION_ANIMATION_TIME = 3;
-    public Color EXPLOSION_COLOR;
     private Color DEFAULT_COLOR = Color.white;
 
     void Start()
     {
         deacreaseFire = true;
-        light = transform.GetChild(1).gameObject.GetComponent<Light>(); // 1 is the index of light child.
+        light = transform.GetChild(0).gameObject.GetComponent<Light>(); // 1 is the index of light child.
         counter = 0;
         startingFireValues = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         startingLightRange = light.range;
@@ -51,13 +54,19 @@ public class FlameCounter : MonoBehaviour
         float startRange = light.range;
         Vector3 startScale = transform.localScale;
         Color startColor = light.color;
+        bool isSoundChanged = false;
 
         float t = 0;
         while (t <= EXPLOSION_ANIMATION_TIME)
         {
             light.range = Mathf.Lerp(startRange, startingLightRange * EXPLOSION_FACTOR, t / EXPLOSION_ANIMATION_TIME);
             transform.localScale = Vector3.Lerp(startScale, startingFireValues * EXPLOSION_FACTOR, t / EXPLOSION_ANIMATION_TIME);
-
+            if (t >= EXPLOSION_ANIMATION_TIME / 4 && !isSoundChanged)
+            {
+                isSoundChanged = true;
+                audio.clip = explosionSound;
+                audio.Play();
+            }
             ChangeColor(Color.Lerp(startColor, EXPLOSION_COLOR, t / EXPLOSION_ANIMATION_TIME));
 
             t += Time.deltaTime;
